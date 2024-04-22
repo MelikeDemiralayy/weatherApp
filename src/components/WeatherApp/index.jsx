@@ -32,7 +32,7 @@ function WeatherApp() {
   };
 
   const displayHourlyForecast = () => {
-    return hourlyForecastData.map(item => {
+    return hourlyForecastData.map((item) => {
       const dateTime = new Date(item.dt * 1000);
       const hour = dateTime.getHours();
       const temperature = Math.round(item.main.temp - 273.15);
@@ -40,7 +40,7 @@ function WeatherApp() {
       const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
       return (
-        <div key={item.dt} className="hourly-item">
+        <div key={item.dt} className="hourly-item" style={{ color: "white" }}>
           <span>{hour}:00</span>
           <img src={iconUrl} alt="Hourly Weather Icon" />
           <span>{temperature}°C</span>
@@ -59,11 +59,29 @@ function WeatherApp() {
     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
     return (
-      <div id="weather-info">
-        <p>{cityName}</p>
-        <p>{description}</p>
-        <div id="temp-div">
-          <p>{temperature}°C</p>
+      <div
+        id="weather-info"
+        style={{
+          backgroundImage: `url(/public/assets/weather.svg)`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          color: "white",
+          width: "359px",
+          height: "328px",
+          padding: "12px",
+          borderRadius: "12px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <p>{cityName}</p>
+          <p>{description}</p>
+          <div id="temp-div">
+            <p>{temperature}°C</p>
+          </div>
         </div>
         <img id="weather-icon" src={iconUrl} alt={description} />
       </div>
@@ -72,14 +90,29 @@ function WeatherApp() {
 
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center">
-  <div className="max-w-md p-8 rounded-lg shadow-lg backdrop-blur-md border border-opacity-10 relative" style={{ width: '500px', height: '812px', backgroundImage: `url(/public/assets/Background.png)` }}>
-      <Search getWeather={getWeather} />
-      {displayWeather()}
-      <div id="hourly-forecast" className="mt-8 flex justify-center overflow-x-auto whitespace-nowrap">
-        {displayHourlyForecast()}
+      <div
+        className="max-w-md p-8 rounded-lg shadow-lg backdrop-blur-md border border-opacity-10 relative"
+        style={{
+          width: "500px",
+          height: "812px",
+          backgroundImage: `url(/public/assets/Background.png)`,
+        }}
+      >
+        <img
+          src="/public/assets/Logo.svg"
+          alt="Logo"
+          className="mx-auto mb-8"
+        />
+        <Search getWeather={getWeather} />
+        {displayWeather()}
+        <div
+          id="hourly-forecast"
+          className="mt-8 flex justify-center overflow-x-auto whitespace-nowrap"
+        >
+          {displayHourlyForecast()}
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 
